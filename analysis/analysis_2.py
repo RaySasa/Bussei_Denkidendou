@@ -1,4 +1,4 @@
-#実験1 銅の電気抵抗の温度依存性
+#実験1 銅の電気抵抗の温度依存性(室温以上)
 import numpy as np
 import matplotlib.pyplot as plt
 
