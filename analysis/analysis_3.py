@@ -1,10 +1,14 @@
 #実験1 銅の電気抵抗の温度依存性(全温度)
 import numpy as np
 import matplotlib.pyplot as plt
+from pt_calibration import temperature_from_resistance, resistance_from_temperature
+
+#texフォントを使用
+plt.rcParams["text.usetex"] = False
 
 #温度と抵抗のフィット
-a = 300 / (149.51 - 28.76)
-b = 100 - a * 28.76
+#a = 300 / (149.51 - 28.76)
+#b = 100 - a * 28.76
 
 #正電流の測定
 rp = [109.9884, 114.0388, 118.0061, 122.438, 126.309, 130.203, 134.011, 137.932, 141.803, 145.618, 149.519, 106.6974, 102.7162, 98.7824, 94.7580, 90.7398, 86.7571, 82.0026, 78.6753, 74.6386, 70.5695, 66.4833, 62.3412, 58.2490, 54.1407, 49.8258, 45.7039, 41.5446, 37.1172, 33.0702, 28.7654]
@@ -15,7 +19,8 @@ V4p = [556.954, 450.838, 332.186, 228.084, 159.723, 112.151, 81.1604, 59.0393, 4
 rp = np.array(rp)
 V2p = np.array(V2p)
 V4p = np.array(V4p)
-Tp = a * rp + b
+#Tp = a * rp + b
+Tp = np.array([temperature_from_resistance(r) for r in rp])
 
 #負電流
 rm = [109.9878, 114.1004, 118.1124, 122.541, 126.381, 130.261, 134.055, 137.993, 141.856, 145.672, 149.574, 106.6549, 102.6587, 98.7096, 94.7025, 90.5986, 86.6746, 82.4279, 78.6003, 74.5591, 70.4976, 66.3929, 62.2888, 58.1999, 54.1079, 49.7521, 45.6665, 41.5787, 37.3244, 33.0539, 28.7428]
@@ -25,17 +30,19 @@ V4m = [556.563, 448.610, 329.080, 225.777, 158.545, 111.571, 80.7859, 58.7716, 4
 rm = np.array(rm)
 V2m = - np.array(V2m)
 V4m = - np.array(V4m)
-Tm = a * rm + b
+#Tm = a * rm + b
+Tm = np.array([temperature_from_resistance(r) for r in rm])
 
 #熱起電力の補正
-rho2 = (V2p - V2m) / 2 * ((1.01 * 1) / 2.32)
-rho4 = (V4p - V4m) / 2 * ((1.01 * 1) / 2.32)
+rho2 = (V2p - V2m) / 2 * ((1.01 * 1) / 2.32) * 1e-3
+rho4 = (V4p - V4m) / 2 * ((1.01 * 1) / 2.32) * 1e-3
 T = (Tp + Tm) / 2
 
 plt.scatter(T, rho2, label= "2tanshi")
 plt.scatter(T, rho4, label= "4tanshi")
-#plt.xlim(290, 410)
-#plt.ylim(0, 1400)
+plt.xlabel("temperature [K]")
+plt.ylabel(r"resistivity [$\Omega \cdot$cm]")
 plt.legend()
 plt.grid(linestyle = "--", linewidth = 0.5)
+plt.savefig("tex/analysis_3_cal.pdf", dpi=300, bbox_inches="tight")
 plt.show()

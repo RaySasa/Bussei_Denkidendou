@@ -1,6 +1,7 @@
 #銅
 import numpy as np
 import matplotlib.pyplot as plt
+from pt_calibration import temperature_from_resistance, resistance_from_temperature
 
 #温度と抵抗のフィット
 a = 300 / (149.51 - 28.76)
@@ -15,7 +16,7 @@ V4p = [45.0520, 44.0108, 42.6204, 41.0911, 39.0363, 36.7673, 35.0220, 33.1900, 3
 rp = np.array(rp)
 V2p = np.array(V2p)
 V4p = np.array(V4p)
-Tp = a * rp + b
+Tp = np.array([temperature_from_resistance(r) for r in rp])
 
 #負電流
 rm = [110.7896, 106.5878, 102.7720, 98.6771, 94.7289, 89.9743, 86.7999, 82.7104, 78.5574, 74.5982, 70.4362, 66.4072, 62.3090, 58.1553, 54.0959, 49.9268, 45.7031, 41.5454, 37.3366, 33.0397, 28.7622]
@@ -25,7 +26,7 @@ V4m = [45.0631, 43.9816, 42.6695, 41.0361, 39.2218, 36.6712, 35.0837, 33.1522, 3
 rm = np.array(rm)
 V2m = - np.array(V2m) / 10
 V4m = - np.array(V4m) / 10
-Tm = a * rm + b
+Tm = np.array([temperature_from_resistance(r) for r in rm])
 
 #熱起電力の補正
 rho2 = (V2p - V2m) / 2 * (2.32 / (1.01 * 1)) * 1e-3
@@ -34,13 +35,11 @@ T = (Tp + Tm) / 2
 rho2 = np.delete(rho2, 7, None)
 T0 = np.delete(T, 7, None)
 
-print(T)
-print(T0)
-
 plt.scatter(T0, rho2, label= "2tanshi")
 plt.scatter(T, rho4, label= "4tanshi")
-plt.xlim(90, 310)
-#plt.ylim(0, 1400)
+plt.xlabel("temperature [K]")
+plt.ylabel(r"resistivity [$\Omega \cdot$cm]")
 plt.legend()
 plt.grid(linestyle = "--", linewidth = 0.5)
+plt.savefig("tex/analysis_5_cal.pdf", dpi=300, bbox_inches="tight")
 plt.show()

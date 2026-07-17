@@ -1,0 +1,136 @@
+\documentclass[11pt, titlepage, openany]{ltjsbook}
+%二段組にするなら[, twocolumn]
+
+% =========================
+% 数学
+% =========================
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{cases}
+\usepackage{physics}
+\usepackage{siunitx}
+
+% =========================
+% 図・色
+% =========================
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{caption}
+
+% =========================
+% TikZ
+% =========================
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{math}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns.meta}
+\usetikzlibrary{intersections}
+\usetikzlibrary{backgrounds}
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+% =========================
+% 枠・装飾
+% =========================
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{fancybox}
+\usepackage{ascmac}
+\usepackage{diagbox}
+\newcommand{\slashcell}{\diagbox[width=3.5em,height=2em]{}{}}
+
+
+% =========================
+% レイアウト
+% =========================
+\usepackage[top=20mm, bottom=20mm, left=20mm, right=20mm]{geometry}
+\usepackage{nidanfloat}
+\usepackage{enumitem}
+\usepackage{varwidth}
+
+% =========================
+% 日本語
+% =========================
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+%\usepackage[deluxe]{otf}
+
+% =========================
+% コード表示
+% =========================
+\usepackage{listings}
+\usepackage{jvlisting}
+\usepackage{xcolor}
+\usepackage{minted}
+
+\definecolor{codebg}{RGB}{246,249,251}
+\definecolor{coderule}{RGB}{176,190,205}
+\usemintedstyle{pastie}
+\setminted{
+  linenos,
+  breaklines,
+  breakanywhere,
+  fontsize=\scriptsize,
+  frame=single,
+  framesep=2mm,
+  baselinestretch=1.0,
+  bgcolor=codebg,
+  rulecolor=coderule,
+  tabsize=2,
+  numbersep=6pt,
+}
+
+% =========================
+% その他
+% =========================
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{appendix}
+\setcounter{tocdepth}{2}
+
+
+% =========================
+% タイトル
+% =========================
+\title{\huge{物質の電気伝導と物性}}
+\author{\vspace{3cm}\\
+\Large{担当教員}\\
+\vspace{2cm}\Large{蒋先生}\\
+\Large{04B24032}\\
+\Large{笹伶夷}\\
+\vspace{2cm}\Large{共同実験者：田處}\\
+\Large{実験日：2026年6月23日、6月24日、6月20日、7月1日}
+}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\chapter{はじめに}
+
+
+\chapter{実験1（金属）}
+
+\section{目的}
+金属(銅)の電気抵抗の温度依存性を調べ、それらの特徴および原因について理解を深めるとともに電気抵抗測定法を学ぶ。
+\section{理論？}
+\section{測定原理？}
+\section{測定結果}
+
+
+\chapter{実験2（半導体）}
+
+\section{目的}
+本実験では、最も典型的な半導体の一つであるゲルマニウム(Ge)を母体とした不純物半導体において電気伝導度の温度変化を測定し、その性質を物理的に理解する。
+
+
+\end{document}

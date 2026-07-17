@@ -1,6 +1,7 @@
 #超伝導　銅酸化物高温超伝導体 メールに添付して提出
 import numpy as np
 import matplotlib.pyplot as plt
+from pt_calibration import temperature_from_resistance, resistance_from_temperature
 
 #温度と抵抗のフィット
 a = 300 / (149.51 - 28.76)
@@ -15,7 +16,7 @@ V4p = [0.1683, 0.1677, 0.1621, 0.1560, 0.1495, 0.1433, 0.1373, 0.1315, 0.1256, 0
 rp = np.array(rp)
 V2p = np.array(V2p)
 V4p = np.array(V4p)
-Tp = a * rp + b
+Tp = np.array([temperature_from_resistance(r) for r in rp])
 
 #負電流
 rm = [110.2354, 106.5081, 102.3130, 98.7747, 94.6601, 90.6841, 86.6552, 82.6277, 78.6137, 74.6077, 70.4757, 66.4311, 62.2409, 58.2162, 54.1034, 49.9081, 45.7050, 41.5854, 37.2802, 33.0078, 28.7574, 28.2704, 27.7575, 27.2631, 26.7591, 26.2388, 25.8563, 25.2435]
@@ -25,17 +26,18 @@ V4m = [0.1717, 0.1615, 0.1547, 0.1491, 0.1424, 0.1364, 0.1311, 0.1255, 0.1205, 0
 rm = np.array(rm)
 V2m = - np.array(V2m) / 10
 V4m = - np.array(V4m) / 10
-Tm = a * rm + b
+Tm = np.array([temperature_from_resistance(r) for r in rm])
 
 #熱起電力の補正
 rho2 = (V2p - V2m) / 2 * (2.32 / (1.01 * 1)) * 1e-3
 rho4 = (V4p - V4m) / 2 * (2.32 / (1.01 * 1)) * 1e-3
 T = (Tp + Tm) / 2
 
-plt.scatter(T, rho2 / rho2[0], label= "2tanshi", s=5)
-plt.scatter(T, rho4 / rho4[0], label= "4tanshi", s=5)
-plt.xlim(90, 100)
-#plt.ylim(0, 1400)
+plt.scatter(T, rho2 / rho2[0], label= "2tanshi", s=15)
+plt.scatter(T, rho4 / rho4[0], label= "4tanshi", s=15)
+plt.xlabel("temperature [K]")
+plt.ylabel(r"resistivity [$\Omega \cdot$cm]")
 plt.legend()
 plt.grid(linestyle = "--", linewidth = 0.5)
+plt.savefig("tex/analysis_6_cal.pdf", dpi=300, bbox_inches="tight")
 plt.show()

@@ -2,6 +2,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#texフォントを使用
+plt.rcParams["text.usetex"] = False
+
 #温度と抵抗のフィット
 a = 300 / (149.51 - 28.76)
 b = 100 - a * 28.76
@@ -34,7 +37,6 @@ T = (Tp + Tm) / 2
 
 plt.scatter(T, rho2, label= "2tanshi")
 plt.scatter(T, rho4, label= "4tanshi")
-plt.xlim(290, 410)
-plt.ylim(0, 1400)
+plt.grid(linestyle = "--", linewidth = 0.5)
 plt.legend()
 plt.show()
