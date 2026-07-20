@@ -3,6 +3,9 @@ from scipy.integrate import quad
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
+#texフォントを使用
+plt.rcParams["text.usetex"] = False
+
 # 表のデータ
 T_data = np.array([
     80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
@@ -59,13 +62,16 @@ rmse = np.sqrt(np.mean(residual**2))
 print(f"RMSE = {rmse:.6f} Ω")
 
 # グラフ表示
-T_plot = np.linspace(80, 400, 500)
+T_plot = np.linspace(1, 400, 1000)
 R_plot = R_bloch_gruneisen(T_plot, R0_fit, A_fit)
 
-plt.scatter(T_data, R_data, label="table data")
-plt.plot(T_plot, R_plot, label="Bloch-Gruneisen fit")
-plt.xlabel("T [K]")
-plt.ylabel("R_Pt [Ω]")
-plt.legend()
+
+#plt.scatter(T_data, R_data, label="table data")
+plt.plot(T_plot, R_plot)
+plt.xlabel("temperature [K]")
+plt.ylabel(r"resistance [$\Omega$]")
+#plt.legend()
+plt.ylim(0, None)
 plt.grid()
+plt.savefig("tex/resistivity_Pt.pdf", dpi=300, bbox_inches="tight")
 plt.show()
