@@ -62,7 +62,7 @@ rmse = np.sqrt(np.mean(residual**2))
 print(f"RMSE = {rmse:.6f} Ω")
 
 # グラフ表示
-T_plot = np.linspace(0, 50, 1000)
+T_plot = np.linspace(0, 400, 1000)
 R_plot = R_bloch_gruneisen(T_plot, R0_fit, A_fit)
 
 
@@ -71,7 +71,8 @@ plt.plot(T_plot, R_plot)
 plt.xlabel("temperature [K]")
 plt.ylabel(r"resistance [$\Omega$]")
 #plt.legend()
+plt.xlim(0, None)
 plt.ylim(0, None)
 plt.grid()
-plt.savefig("tex/resistivity_Pt(lowtemp).pdf", dpi=300, bbox_inches="tight")
+plt.savefig("tex/resistivity_Pt.pdf", dpi=300, bbox_inches="tight")
 plt.show()
